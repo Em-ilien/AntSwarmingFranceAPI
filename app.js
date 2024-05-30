@@ -19,12 +19,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-fs.readdirSync(path.join(__dirname, "routes")).forEach((file) => {
-  const route = file.substr(0, file.indexOf("."));
-  const routeConfig = require(`./routes/${route}`);
-  if (route === "index") app.use("/", routeConfig);
-  else app.use(`/${route}`, routeConfig);
-});
+function loadRoutes(dir) {
+  fs.readdirSync(dir).forEach((item) => {
+    const fullPath = path.join(dir, item);
+    const route = path
+      .relative(path.join(__dirname, "routes"), fullPath)
+      .replace(/\\/g, "/")
+      .replace(/\.js$/, "");
+
+    if (fs.statSync(fullPath).isDirectory()) {
+      loadRoutes(fullPath);
+    } else {
+      const routeConfig = require(fullPath);
+      // log the route
+      if (route.endsWith("/index")) {
+        app.use(`/${route.replace(/\/index$/, "")}`, routeConfig);
+        console.log(`Loading route: ${route}`);
+      } else app.use(`/${route}`, routeConfig);
+    }
+  });
+}
+
+loadRoutes(path.join(__dirname, "routes"));
 
 app.use(function (req, res, next) {
   next(createError(404));
