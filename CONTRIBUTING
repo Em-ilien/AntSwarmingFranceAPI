@@ -1,0 +1,42 @@
+# Contributing to Ant Swarming Statistics API
+
+We welcome contributions from everyone. Here are some guidelines to follow to help us manage the project efficiently.
+
+## Types of Contributions
+
+- **Feature Requests**: Suggest new features for the project.
+- **Bug Fixes**: Report and fix bugs in the project.
+- **Enhancements**: Suggest and implement improvements to the existing codebase.
+- **Documentation**: Add or improve documentation.
+- **Tests**: Add or improve tests.
+- **Bug Reports**: Report issues or unexpected behaviors.
+- **Code Reviews**: Help review pull requests from other contributors.
+
+## Submission Process
+
+1. **Open an Issue**: Before working on a contribution, please open an issue to discuss the proposed change.
+2. **Submit a Pull Request (PR)**: Once the issue is discussed and agreed upon, you can submit a PR. Make sure to reference the issue in your PR.
+
+## Code Standards
+
+- Ensure that each endpoint created is covered by a test using Bruno. See [docs/en/test.md](/docs/en/test.md) for details.
+- Each PR must be free of bugs. It is essential to test thoroughly and take care to ensure the quality of your contribution.
+
+## Environment Setup
+
+Follow the instructions in the [README.md](/README.md) file to set up your development environment.
+
+## Code of Conduct
+
+- **Respect Privacy**: Respect the privacy of other contributors.
+- **Bug-Free PRs**: Each PR must be free of bugs. It is crucial to ensure this by testing and being careful.
+
+## Code Review Process
+
+- Only the lead maintainer can approve a PR, but comments and reviews from everyone are welcome.
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT License, as specified in the [LICENSE](/LICENSE) file.
+
+Thank you for contributing to the Ant Swarming Statistics API!
