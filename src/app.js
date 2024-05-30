@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const { loadRoutes } = require("./router");
 
 const app = express();
 
@@ -19,29 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-function loadRoutes(dir) {
-  fs.readdirSync(dir).forEach((item) => {
-    const fullPath = path.join(dir, item);
-    const route = path
-      .relative(path.join(__dirname, "routes"), fullPath)
-      .replace(/\\/g, "/")
-      .replace(/\.js$/, "");
-
-    if (fs.statSync(fullPath).isDirectory()) {
-      if (item.startsWith(".")) return;
-      loadRoutes(fullPath);
-    } else {
-      const routeConfig = require(fullPath);
-      // log the route
-      if (route.endsWith("/index")) {
-        app.use(`/${route.replace(/\/index$/, "")}`, routeConfig);
-        console.log(`Loading route: ${route}`);
-      } else app.use(`/${route}`, routeConfig);
-    }
-  });
-}
-
-loadRoutes(path.join(__dirname, "routes"));
+console.log("\n === Loading routes === \n");
+loadRoutes(path.join(__dirname, "routes"), app);
+console.log("\n === Routes loaded === \n");
 
 app.use(function (req, res, next) {
   next(createError(404));
