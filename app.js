@@ -22,7 +22,8 @@ app.use(express.static(path.join(__dirname, "public")));
 fs.readdirSync(path.join(__dirname, "routes")).forEach((file) => {
   const route = file.substr(0, file.indexOf("."));
   const routeConfig = require(`./routes/${route}`);
-  app.use(`/${route}`, routeConfig);
+  if (route === "index") app.use("/", routeConfig);
+  else app.use(`/${route}`, routeConfig);
 });
 
 app.use(function (req, res, next) {
