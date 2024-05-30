@@ -28,6 +28,7 @@ function loadRoutes(dir) {
       .replace(/\.js$/, "");
 
     if (fs.statSync(fullPath).isDirectory()) {
+      if (item.startsWith(".")) return;
       loadRoutes(fullPath);
     } else {
       const routeConfig = require(fullPath);
